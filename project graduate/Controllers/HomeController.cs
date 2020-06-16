@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using project_graduate.Models;
@@ -11,33 +14,132 @@ namespace project_graduate.Controllers
 {
     public class HomeController : Controller
     {
+        public string downloadtext;
+        public string key = "1234567890Abff26";
+        [Obsolete]
+        private readonly IHostingEnvironment _hosting;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        myclass op = new myclass();
+
+        [Obsolete]
+        public HomeController(ILogger<HomeController> logger, IHostingEnvironment hosting)
         {
             _logger = logger;
+            _hosting = hosting;
         }
 
         public IActionResult Index()
         {
             return View();
         }
+        [HttpGet]
         public IActionResult Text()
         {
             return View();
         }
+        [HttpPost]
+        public IActionResult Text(string orignalmsg)
+        {// Encryptclass ecrypt = new Encryptclass();
+            myclass op = new myclass();
+            Encryption op2 = new Encryption();
+            
+            op.orignalmsg = orignalmsg;
+            string str = XXTEA.Encrypt(op.orignalmsg, key);
+            op.cryptomsg = op2.convert_to_RNA(op2.convert_to_dna(op2.split_binary(op2.StringToBinary(str))));
+            //decryption 
+            // op.cryptomsg = XXTEA.Decrypt(orignalmsg, key);
+
+            return View("Text", op);
+
+        }
+        [HttpGet]
         public IActionResult Indexfile()
         {
             return View();
         }
+        
+        [HttpPost]
+        [Obsolete]
+        public IActionResult Indexfile(IFormFile File)
+
+        {
+            fileclass op = new fileclass();
+            Encryption op2 = new Encryption();
+            if (File == null || File.Length == 0) return Content("file not selected");
+            //get path
+            string path_Root = _hosting.WebRootPath;
+            string path_to_files = path_Root + "\\files\\" + File.FileName;
+
+            //copyfiles
+            using (var stream = new FileStream(path_to_files, FileMode.Create))
+            {
+                File.CopyTo(stream);
+            }
+
+
+
+            // read file
+            FileStream fileStream = new FileStream(path_to_files, FileMode.Open);
+
+            using (StreamReader reader = new StreamReader(fileStream))
+            {
+                // string line = reader.ReadLine();
+                string line = reader.ReadToEnd();
+                //  op.Encryptfile = line;
+                string str = XXTEA.Encrypt(line, key);
+                op.Encryptfile = op2.convert_to_RNA(op2.convert_to_dna(op2.split_binary(op2.StringToBinary(str))));
+              
+
+            }
+            downloadtext = op.Encryptfile;
+            //delete file
+            FileInfo fi = new FileInfo(path_to_files);
+            if (fi != null)
+            {
+                System.IO.File.Delete(path_to_files);
+                fi.Delete();
+            }
+            ///////////////////
+            //create file or put Encrypt message in file
+            //path which file put in
+            string docPath = path_Root + "\\files\\";
+
+            // Write the specified text asynchronously to a new file named "WriteTextAsync.txt".
+            using (StreamWriter outputFile = new StreamWriter(Path.Combine(docPath, "Encryptmessage.txt")))
+            {
+                outputFile.Write(downloadtext);
+            }
+
+            return View("Indexfile", op);
+
+
+        }
+        // Decryption_Class Action
+        /// /////////////////////////////////////////////////////
+        [HttpGet]
         public IActionResult DecryptionText()
         {
             return View();
         }
-        public IActionResult DecryptionFile()
+        [HttpPost]
+        public IActionResult DecryptionText(string cryptomsg)
         {
-            return View();
+            myclass op = new myclass();
+            Decryption_Class op2 = new Decryption_Class();
+
+
+            string str = op2.BinaryToString(op2.convert_DNA_to_binary(op2.convert_finalDNA_to_DNA(op2.split_DNA(cryptomsg))));
+               
+            op.orignalmsg = XXTEA.Decrypt(str, key); 
+            //decryption 
+            // op.cryptomsg = XXTEA.Decrypt(orignalmsg, key);
+
+            return View("DecryptionText", op);
         }
+
+
+        //////////////////////////////////////////////////////////////////
         public IActionResult Privacy()
         {
             return View();

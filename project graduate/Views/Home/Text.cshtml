@@ -1,13 +1,16 @@
-﻿
+﻿@model project_graduate.Models.myclass
+
 @{
     ViewData["Title"] = "View";
 }
-<div class="vv">
+<form asp-controller="Home" asp-action="Text" method="post">
+    <div class="vv">
 
-    <textarea placeholder="input here"style="background-color:aliceblue;color:black"></textarea>
+        <textarea asp-for="orignalmsg" placeholder="input here" style="background-color:aliceblue;color:black"></textarea>
 
-    <textarea placeholder="the result" style="background-color:darkgray;color:black"></textarea>
-</div>
-<button type="button" id="vc" class="btn btn-primary">Encrypt to DNA</button>
-<button type="button" id="vx" class="btn btn-primary">save as file</button>
-<div style="height:100px"></div>
+        <textarea asp-for="cryptomsg" placeholder="the result" style="background-color:darkgray;color:black"></textarea>
+    </div>
+    <button type="submit" id="vc" class="btn btn-primary">Encrypt to DNA</button>
+    <button type="button" id="vx" class="btn btn-primary" href="">save as File</button>
+    <div style="height:100px"></div>
+    </form>
