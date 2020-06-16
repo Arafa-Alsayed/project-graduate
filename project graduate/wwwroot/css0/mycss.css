@@ -1,0 +1,24 @@
+﻿.vv {
+    padding-top: 150px;
+    padding-bottom: 10px;
+}
+
+    .vv textarea {
+        width: 500px;
+        height: 300px;
+        margin-left: 70px;
+    }
+
+#vc {
+    width: 200px;
+    height: 50px;
+    float: left;
+    margin-left: 170px
+}
+
+#vx {
+    width: 200px;
+    height: 50px;
+    float: right;
+    margin-right: 250px
+}
