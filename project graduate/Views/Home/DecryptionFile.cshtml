@@ -1,12 +1,12 @@
-﻿
+﻿@model project_graduate.Models.fileclass
 <div style="margin-top:100px">
 
 </div>
 <div style="background-color:aqua">
-    <form asp-controller="Home" asp-action="" method="post" enctype="multipart/form-data">
+    <form asp-controller="Home" asp-action="DecryptionFile" method="post" enctype="multipart/form-data">
         <div class="form-group">
 
-            <input type="file" style="margin-left:50px;position:center;display:inline" />
+            <input type="file"asp-for="File" style="margin-left:50px;position:center;display:inline" />
 
             <button type="submit" class="btn btn-primary" style="display:inline">Decryption File</button>
 
@@ -14,7 +14,7 @@
         <div>
 
 
-            <textarea class="form-control" placeholder="DNA Text" readonly style=" width: 500px; height: 300px; margin-right: 70px;float:right; background-color: darkgray; color: black"></textarea>
+            <textarea class="form-control"asp-for="Decryptfile" placeholder="DNA Text" readonly style=" width: 500px; height: 300px; margin-right: 70px;float:right; background-color: darkgray; color: black"></textarea>
             <!--  <input asp-for="cryptomsg" class="form-control" /> -->
         </div>
 
@@ -22,7 +22,8 @@
 
             <div class="form-group row">
                 <div class="col-sm-10">
-                    <button type="button" class="btn btn-primary" style="float:right">dawnload</button>
+                   
+                    <button type="button" class="btn btn-primary" style="float:right"> @Html.ActionLink("save the my file", "DownloadDecryptDocument")</button>
 
                 </div>
             </div>

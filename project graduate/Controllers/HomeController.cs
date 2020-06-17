@@ -137,8 +137,104 @@ namespace project_graduate.Controllers
 
             return View("DecryptionText", op);
         }
+        [HttpGet]
+        public IActionResult DecryptionFile()
+        {
+            return View();
+        }
+        [HttpPost]
+        [Obsolete]
+        //Decryption file
+        public IActionResult DecryptionFile(IFormFile File)
+        {
+            fileclass op = new fileclass();
+            Decryption_Class op2 = new Decryption_Class();
+            if (File == null || File.Length == 0) return Content("file not selected");
+            //get path
+            string path_Root = _hosting.WebRootPath;
+            string path_to_files = path_Root + "\\files\\" + File.FileName;
+
+            //copyfiles
+            using (var stream = new FileStream(path_to_files, FileMode.Create))
+            {
+                File.CopyTo(stream);
+            }
 
 
+
+            // read file
+            FileStream fileStream = new FileStream(path_to_files, FileMode.Open);
+
+            using (StreamReader reader = new StreamReader(fileStream))
+            {
+                // string line = reader.ReadLine();
+                string line = reader.ReadToEnd();
+                //  op.Encryptfile = line;
+                string str = op2.BinaryToString(op2.convert_DNA_to_binary(op2.convert_finalDNA_to_DNA(op2.split_DNA(line))));
+                op.Decryptfile = XXTEA.Decrypt(str, key);
+
+
+            }
+            downloadtext = op.Decryptfile;
+            //delete file
+            FileInfo fi = new FileInfo(path_to_files);
+            if (fi != null)
+            {
+                System.IO.File.Delete(path_to_files);
+                fi.Delete();
+            }
+            ///////////////////
+            //create file or put Encrypt message in file
+            //path which file put in
+            string docPath = path_Root + "\\files\\";
+
+            // Write the specified text asynchronously to a new file named "WriteTextAsync.txt".
+            using (StreamWriter outputFile = new StreamWriter(Path.Combine(docPath, "Decryptmessage.txt")))
+            {
+                outputFile.Write(downloadtext);
+            }
+
+            return View("DecryptionFile", op);
+
+        }
+
+
+        private Dictionary<string, string> GetMimeTypes()
+        {
+            return new Dictionary<string, string>
+        {
+            {".txt", "text/plain"},
+            {".pdf", "application/pdf"},
+            {".doc", "application/vnd.ms-word"},
+            {".docx", "application/vnd.ms-word"},
+            {".png", "image/png"},
+            {".jpg", "image/jpeg"}
+
+        };
+        }
+        [HttpGet]
+        [Obsolete]
+        //best code for downloadfile
+        public ActionResult DownloadDecryptDocument()
+        {
+            string path_Root = _hosting.WebRootPath;
+            var path = path_Root + "\\files\\" + "Decryptmessage.txt";
+
+            
+            string filePath = path;
+            string fileName = "Decryptmessage.txt";
+            //delete file from wwwroot files
+            byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
+            FileInfo fi = new FileInfo(path);
+            if (fi != null)
+            {
+                System.IO.File.Delete(path);
+                fi.Delete();
+            }
+
+            return File(fileBytes, "application/force-download", fileName);
+
+        }
         //////////////////////////////////////////////////////////////////
         public IActionResult Privacy()
         {

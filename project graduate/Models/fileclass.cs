@@ -11,5 +11,6 @@ namespace project_graduate.Models
         public IFormFile File { get; set; }
         public string File_Name { get; set; }
         public string Encryptfile { get; set; }
+        public string Decryptfile { get; set; }
     }
 }

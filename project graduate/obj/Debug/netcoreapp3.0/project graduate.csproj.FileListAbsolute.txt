@@ -112,3 +112,4 @@ C:\Users\ArafaAlsayed\source\repos\project graduate\project graduate\obj\Debug\n
 C:\Users\ArafaAlsayed\source\repos\project graduate\project graduate\obj\Debug\netcoreapp3.0\project graduate.pdb
 C:\Users\ArafaAlsayed\source\repos\project graduate\project graduate\obj\Debug\netcoreapp3.0\project graduate.genruntimeconfig.cache
 C:\Users\ArafaAlsayed\source\repos\project graduate\project graduate\obj\Debug\netcoreapp3.0\project graduate.csprojAssemblyReference.cache
+C:\Users\ArafaAlsayed\source\repos\project graduate\project graduate\obj\Debug\netcoreapp3.0\Razor\Views\Home\DownloadDecryptDocument.cshtml.g.cs
