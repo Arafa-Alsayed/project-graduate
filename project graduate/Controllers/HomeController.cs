@@ -39,6 +39,7 @@ namespace project_graduate.Controllers
             return View();
         }
         [HttpPost]
+        [Obsolete]
         public IActionResult Text(string orignalmsg)
         {// Encryptclass ecrypt = new Encryptclass();
             myclass op = new myclass();
@@ -47,9 +48,19 @@ namespace project_graduate.Controllers
             op.orignalmsg = orignalmsg;
             string str = XXTEA.Encrypt(op.orignalmsg, key);
             op.cryptomsg = op2.convert_to_RNA(op2.convert_to_dna(op2.split_binary(op2.StringToBinary(str))));
+            string document = op.cryptomsg;
             //decryption 
             // op.cryptomsg = XXTEA.Decrypt(orignalmsg, key);
+            //create file or put Encrypt message in file
+            //path which file put in
+            string path_Root = _hosting.WebRootPath;
+            string docPath = path_Root + "\\files\\";
 
+            // Write the specified text asynchronously to a new file named "WriteTextAsync.txt".
+            using (StreamWriter outputFile = new StreamWriter(Path.Combine(docPath, "Encryptmessage.txt")))
+            {
+                outputFile.Write(document);
+            }
             return View("Text", op);
 
         }
@@ -115,6 +126,29 @@ namespace project_graduate.Controllers
 
 
         }
+        [HttpGet]
+        [Obsolete]
+        //best code for downloadfile
+        public ActionResult DownloadEncryptDocument()
+        {
+            string path_Root = _hosting.WebRootPath;
+            var path = path_Root + "\\files\\" + "Encryptmessage.txt";
+
+
+            string filePath = path;
+            string fileName = "Encryptmessage.txt";
+            //delete file from wwwroot files
+            byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
+            FileInfo fi = new FileInfo(path);
+            if (fi != null)
+            {
+                System.IO.File.Delete(path);
+                fi.Delete();
+            }
+
+            return File(fileBytes, "application/force-download", fileName);
+
+        }
         // Decryption_Class Action
         /// /////////////////////////////////////////////////////
         [HttpGet]
@@ -123,6 +157,7 @@ namespace project_graduate.Controllers
             return View();
         }
         [HttpPost]
+        [Obsolete]
         public IActionResult DecryptionText(string cryptomsg)
         {
             myclass op = new myclass();
@@ -131,9 +166,22 @@ namespace project_graduate.Controllers
 
             string str = op2.BinaryToString(op2.convert_DNA_to_binary(op2.convert_finalDNA_to_DNA(op2.split_DNA(cryptomsg))));
                
-            op.orignalmsg = XXTEA.Decrypt(str, key); 
+            op.orignalmsg = XXTEA.Decrypt(str, key);
             //decryption 
             // op.cryptomsg = XXTEA.Decrypt(orignalmsg, key);
+            string document = op.orignalmsg;
+            //decryption 
+            // op.cryptomsg = XXTEA.Decrypt(orignalmsg, key);
+            //create file or put Encrypt message in file
+            //path which file put in
+            string path_Root = _hosting.WebRootPath;
+            string docPath = path_Root + "\\files\\";
+
+            // Write the specified text asynchronously to a new file named "WriteTextAsync.txt".
+            using (StreamWriter outputFile = new StreamWriter(Path.Combine(docPath, "Decryptmessage.txt")))
+            {
+                outputFile.Write(document);
+            }
 
             return View("DecryptionText", op);
         }
@@ -245,6 +293,16 @@ namespace project_graduate.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+        [HttpGet]
+        public IActionResult Encryption_choose()
+        {
+            return View();
+        }
+        [HttpGet]
+        public IActionResult Decryption_choose()
+        {
+            return View();
         }
     }
 }

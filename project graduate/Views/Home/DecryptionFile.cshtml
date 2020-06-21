@@ -2,7 +2,7 @@
 <div style="margin-top:100px">
 
 </div>
-<div style="background-color:aqua">
+<div style="background-color:whitesmoke">
     <form asp-controller="Home" asp-action="DecryptionFile" method="post" enctype="multipart/form-data">
         <div class="form-group">
 
@@ -14,7 +14,7 @@
         <div>
 
 
-            <textarea class="form-control"asp-for="Decryptfile" placeholder="DNA Text" readonly style=" width: 500px; height: 300px; margin-right: 70px;float:right; background-color: darkgray; color: black"></textarea>
+            <textarea class="form-control"asp-for="Decryptfile" placeholder="origin Text" readonly style=" width: 500px; height: 300px; margin-right: 70px;float:right; background-color: darkgray; color: black"></textarea>
             <!--  <input asp-for="cryptomsg" class="form-control" /> -->
         </div>
 
@@ -23,7 +23,7 @@
             <div class="form-group row">
                 <div class="col-sm-10">
                    
-                    <button type="button" class="btn btn-primary" style="float:right"> @Html.ActionLink("save the my file", "DownloadDecryptDocument")</button>
+                    <button type="button" class="btn btn-primary" style="float:right;background-color:azure"> @Html.ActionLink("save the my file", "DownloadEncryptDocument")</button>
 
                 </div>
             </div>
