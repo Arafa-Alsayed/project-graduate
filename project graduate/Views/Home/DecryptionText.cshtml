@@ -3,22 +3,23 @@
 @{
     ViewData["Title"] = "View";
 }
-<form asp-controller="Home" asp-action="DecryptionText" method="post">
-    <div class="vv">
+    <form asp-controller="Home" asp-action="DecryptionText" method="post">
+        <div class="vv">
 
-        <textarea asp-for="cryptomsg" placeholder="input here" style="background-color:aliceblue;color:black"></textarea>
+            <textarea asp-for="cryptomsg" placeholder="input here" style="background-color:aliceblue;color:black"></textarea>
 
-        <textarea asp-for="orignalmsg" placeholder="origin Text" style="background-color:darkgray;color:black"></textarea>
-    </div>
-    <button type="submit" id="vc" class="btn btn-primary">Encrypt to DNA</button>
-   
-    
-    <a href="Home\DownloadDecryptDocument">
-        <button type="button" id="vx" class="btn btn-primary" style="color:white">@Html.ActionLink("save as File", "DownloadDecryptDocument")</button>
-      
-    </a>
-     
-</form>
+            <textarea asp-for="orignalmsg" placeholder="origin Text" style="background-color:darkgray;color:black"></textarea>
+        </div>
+
+        <button type="submit" id="vc" class="btn btn-primary">Decrypt DNA</button>
+
+
+        <a href="Home\DownloadDecryptDocument">
+            <button type="button" id="vx" class="btn btn-primary" style="background-color:bisque">@Html.ActionLink("save as File", "DownloadDecryptDocument")</button>
+
+        </a>
+
+    </form>
 <div style="height:100px;">
 
 </div>
