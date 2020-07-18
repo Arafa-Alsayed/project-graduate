@@ -6,15 +6,19 @@
     <form asp-controller="Home" asp-action="DecryptionFile" method="post" enctype="multipart/form-data">
         <div class="form-group">
 
-            <input type="file"asp-for="File" style="margin-left:50px;position:center;display:inline" />
+            <input type="file" asp-for="File" style="margin-left:50px;position:center;display:inline" />
 
             <button type="submit" class="btn btn-primary" style="display:inline">Decryption File</button>
 
         </div>
+        <div style="height:50px">
+            <input type="text"asp-for="key"placeholder="must enter 16 digit"style="margin-left:790px;" />
+            <span style="color:forestgreen;font:larger">Enter key Decryption</span>
+        </div>
         <div>
 
 
-            <textarea class="form-control"asp-for="Decryptfile" placeholder="origin Text" readonly style=" width: 500px; height: 300px; margin-right: 70px;float:right; background-color: darkgray; color: black"></textarea>
+            <textarea class="form-control" asp-for="Decryptfile" placeholder="if display strange symbols the key not right" readonly style=" width: 500px; height: 300px; margin-right: 70px;float:right; background-color:white; color:black"></textarea>
             <!--  <input asp-for="cryptomsg" class="form-control" /> -->
         </div>
 
@@ -22,7 +26,7 @@
 
             <div class="form-group row">
                 <div class="col-sm-10">
-                   
+
                     <button type="button" class="btn btn-primary" style="float:right;background-color:azure;color:white"> @Html.ActionLink("save as file", "DownloadDecryptDocument")</button>
 
                 </div>

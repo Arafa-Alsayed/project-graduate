@@ -15,7 +15,7 @@ namespace project_graduate.Controllers
     public class HomeController : Controller
     {
         public string downloadtext;
-        public string key = "1234567890Abff26";
+       // public string key = "1234567890Abff26";
         [Obsolete]
         private readonly IHostingEnvironment _hosting;
         private readonly ILogger<HomeController> _logger;
@@ -40,7 +40,7 @@ namespace project_graduate.Controllers
         }
         [HttpPost]
         [Obsolete]
-        public IActionResult Text(string orignalmsg)
+        public IActionResult Text(string orignalmsg,string key)
         {// Encryptclass ecrypt = new Encryptclass();
             myclass op = new myclass();
             Encryption op2 = new Encryption();
@@ -72,7 +72,7 @@ namespace project_graduate.Controllers
         
         [HttpPost]
         [Obsolete]
-        public IActionResult Indexfile(IFormFile File)
+        public IActionResult Indexfile(IFormFile File,string key)
 
         {
             fileclass op = new fileclass();
@@ -158,7 +158,7 @@ namespace project_graduate.Controllers
         }
         [HttpPost]
         [Obsolete]
-        public IActionResult DecryptionText(string cryptomsg)
+        public IActionResult DecryptionText(string cryptomsg,string key)
         {
             myclass op = new myclass();
             Decryption_Class op2 = new Decryption_Class();
@@ -193,7 +193,7 @@ namespace project_graduate.Controllers
         [HttpPost]
         [Obsolete]
         //Decryption file
-        public IActionResult DecryptionFile(IFormFile File)
+        public IActionResult DecryptionFile(IFormFile File,string key)
         {
             fileclass op = new fileclass();
             Decryption_Class op2 = new Decryption_Class();

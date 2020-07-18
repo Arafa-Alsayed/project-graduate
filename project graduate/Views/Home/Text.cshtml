@@ -4,8 +4,12 @@
     ViewData["Title"] = "View";
 }
 <form asp-controller="Home" asp-action="Text" method="post">
+    <div>
+        <span style="margin-left:70px;color:forestgreen;font:larger">Enter key Encryption :</span>
+        <input type="text" asp-for="key" placeholder="must enter 16 digit"style="margin-left:20px;margin-top:100px;" />
+    </div>
     <div class="vv">
-
+        
         <textarea asp-for="orignalmsg" placeholder="input here" style="background-color:aliceblue;color:black"></textarea>
 
         <textarea asp-for="cryptomsg" placeholder="the result" style="background-color:darkgray;color:black"></textarea>
